@@ -1,30 +1,34 @@
-import React, { Component } from "react";
 import axios from "axios";
+import React, { Component } from "react";
+
 class BestBooks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bookArrar: [],
-    };
-  }
-  componentDidMount = () => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/books`)
-      .then((item) => {
-        this.setState({ bookArrar: item.data });
-      })
-      .catch((error) => alert(error.message));
-  };
   render() {
     return (
       <div>
-        {this.state.bookArrar.map((books) => {
-          return (
-            (<h3>{books.title}</h3>),
-            (<p>{books.description}</p>),
-            (<h4>{books.status}</h4>)
-          );
-        })}
+        <h1>{this.props.title}</h1>
+        <h3>{this.props.description}</h3>
+        <h3>{this.props.status}</h3>
+        <h3>{this.props.email}</h3>
+        <button
+          onClick={() => {
+            this.props.handleDelete(this.props.id);
+          }}
+        >
+          Delete
+        </button>
+        <button
+          onClick={() => {
+            this.props.handleUpdate(
+              this.props.id,
+              this.props.title,
+              this.props.description,
+              this.props.status,
+              this.props.email
+            );
+          }}
+        >
+          Update
+        </button>
       </div>
     );
   }
